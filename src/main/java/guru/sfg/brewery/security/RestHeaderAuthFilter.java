@@ -1,55 +1,52 @@
 package guru.sfg.brewery.security;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
+/**
+ * Created by jt on 6/19/20.
+ */
 @Slf4j
-public class RestHeaderAuthFilter extends AbstractAuthenticationProcessingFilter{
-	
-	public RestHeaderAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
-		super(requiresAuthenticationRequestMatcher);
-	}
+public class RestHeaderAuthFilter extends AbstractAuthenticationProcessingFilter {
 
-	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException, IOException, ServletException {
-		
-		String userName = getUsername(request);
-		String password = getPassword(request);
-		
-		if(userName == null) {
-			userName = "";
-		}
-		
-		if(password == null) {
-			password = "";
-		}
-		
-		log.debug("Authenticating User: " + userName);
-		
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, password);
-	
-		return this.getAuthenticationManager().authenticate(token);
-	}
+    public RestHeaderAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+        super(requiresAuthenticationRequestMatcher);
+    }
 
-	private String getPassword(HttpServletRequest request) {
-		return request.getHeader("Api-Secret");
-	}
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+        String userName = getUsername(request);
+        String password = getPassword(request);
 
-	private String getUsername(HttpServletRequest request) {
-		return request.getHeader("Api-Key");
-	}
-	
-	
+        if (userName == null){
+            userName = "";
+        }
+
+        if (password == null){
+            password = "";
+        }
+
+        log.debug("Authenticating User: " + userName);
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, password);
+
+        return this.getAuthenticationManager().authenticate(token);
+    }
+
+    private String getPassword(HttpServletRequest request) {
+        return request.getHeader("Api-Secret");
+    }
+
+    private String getUsername(HttpServletRequest request) {
+        return request.getHeader("Api-Key");
+    }
 }
