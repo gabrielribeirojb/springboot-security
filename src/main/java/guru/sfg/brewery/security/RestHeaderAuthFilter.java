@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RestHeaderAuthFilter extends AbstractAuthenticationProcessingFilter{
 	
-	protected RestHeaderAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+	public RestHeaderAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
 		super(requiresAuthenticationRequestMatcher);
 	}
 
