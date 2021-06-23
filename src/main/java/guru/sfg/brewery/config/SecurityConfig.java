@@ -12,6 +12,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
+import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+
 /**
  * Created by jt on 6/13/20.
  */
@@ -37,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Bean
 	PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
     
     @Override
