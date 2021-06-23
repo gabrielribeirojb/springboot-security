@@ -1,5 +1,6 @@
 package guru.sfg.brewery.web.controllers.api;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,6 +14,13 @@ import guru.sfg.brewery.web.controllers.BaseIT;
  */
 @WebMvcTest
 public class BeerRestControllerIT extends BaseIT {
+	
+	 @Test
+	    void deleteBeer() throws Exception {
+	        mockMvc.perform(delete("/api/v1/beer/97df0c39-90c4-4ae0-b663-453e8e19c311")
+	        .header("Api-Key", "spring").header("Api-Secret", "guru"))
+	        .andExpect(status().isOk());
+	    }
 
     @Test
     void findBeers() throws Exception{
