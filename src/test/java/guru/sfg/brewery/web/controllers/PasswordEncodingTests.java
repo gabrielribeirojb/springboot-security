@@ -24,7 +24,7 @@ public class PasswordEncodingTests {
     	System.out.println(bcrypt.encode(PASSWORD));
     	System.out.println(bcrypt.encode("guru"));
     	
-    	PasswordEncoder bcrypt15 = new BCryptPasswordEncoder(15);
+    	PasswordEncoder bcrypt15 = new BCryptPasswordEncoder(10);
     	System.out.println(bcrypt15.encode("tiger"));
     }
     
